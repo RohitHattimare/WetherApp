@@ -25,12 +25,14 @@ body {
 .nav{
     padding: 50px;
     display: flex;
+    font-size: 40px;
     justify-content: space-between;
 }
 .nav input {
-    width: 150px;
+    width: 200px;
     font-size: 18px;
     padding: 0.5rem;
+    border-radius: 8px;;
 }
 .data{
     display: flex;
@@ -64,6 +66,8 @@ body {
 }
 
 .card-list {
+    min-width: 60%;
+    max-width: 80%;
     display: flex;
     flex-direction: row;
     gap:20px;
@@ -78,6 +82,7 @@ body {
     aspect-ratio:1/2 ;
     text-align: center;
     background-color: #005394;
+    border-radius: 4px;
 }
 
 .card .temp{
@@ -96,7 +101,7 @@ body {
     grid-template-rows:  1fr 1fr;
     gap: 40px;
     justify-items: center;
-    min-width: 50%;
+    min-width: 60%;
     max-width: 80%;
 }
 
@@ -107,6 +112,8 @@ body {
     background: #005394;  
     font-size: large;
     text-align: center;
+    border-radius: 4px;
+
 }
 
 
