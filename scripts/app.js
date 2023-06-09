@@ -5,22 +5,22 @@ const wind = document.querySelector('.wind');
 const airPressure = document.querySelector('.air-pressure');
 const visibility = document.querySelector('.visibility');
 const humidity = document.querySelector('.humidity');
+const cardsList = document.querySelectorAll('.card');
 
-
+console.log(cardsList);
 
 
 const updateCity = async (cityName) => {
     const cityDtl = await getCity(cityName);
     const weather = await getWeather(cityDtl.Key);
-    console.log(cityDtl, weather);
-    return { cityDtl, weather };
+    const forecast = await getForecast(cityDtl.Key);
+    console.log(cityDtl, weather, forecast);
+    return { cityDtl, weather, forecast };
 };
 
 const updateUi = (data) => {
     const city = data.cityDtl;
     const weather = data.weather;
-    console.log(city);
-
     //update Left UI part
     sideData.innerHTML = `
     <div class="image">
@@ -30,6 +30,9 @@ const updateUi = (data) => {
     <h6 class="wether">${weather.WeatherText}</h6>
     <p class="day">Today . ${date.toLocaleDateString()} </p>
     <p class="loaction"> ${city.LocalizedName}</p>`
+
+    //Update right UI 5 day Cards
+
 
     //update right UI boxes
     wind.innerHTML = `  
@@ -53,7 +56,7 @@ city.addEventListener('submit', (e) => {
     e.preventDefault();
     //Get city value
     const cityName = city.city.value.trim();
-    // city.reset();
+    city.reset();
     //Update the UI with new city
     console.log(cityName);
 

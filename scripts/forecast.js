@@ -19,6 +19,15 @@ const getWeather = async (id) => {
     return data[0];
 }
 
+//To Fetch 5 Days of Forecast
+const getForecast = async (id) => {
+    const base = 'http://dataservice.accuweather.com/forecasts/v1/daily/5day/';
+    const query = id + '?apikey=' + key + '&metric=true';
+    const response = await fetch(base + query);
+    const data = await response.json();
+    return data;
+}
+
 // getCity('chhindwara')
 //     .then(response => getWeather(response.Key))
 //     .then(data => console.log(data))
