@@ -5,51 +5,94 @@ const wind = document.querySelector('.wind');
 const airPressure = document.querySelector('.air-pressure');
 const visibility = document.querySelector('.visibility');
 const humidity = document.querySelector('.humidity');
-const cardsList = document.querySelectorAll('.card');
+const cardList = document.querySelector('.card-list');
+const currLocButton = document.querySelector('.nav i');
 
-console.log(cardsList);
 
 
+//Get City from API
 const updateCity = async (cityName) => {
     const cityDtl = await getCity(cityName);
     const weather = await getWeather(cityDtl.Key);
     const forecast = await getForecast(cityDtl.Key);
-    console.log(cityDtl, weather, forecast);
-    return { cityDtl, weather, forecast };
+    const curLoc = await getCurrentLocation();
+
+    console.log(curLoc);
+
+
+    return { cityDtl, weather, forecast, curLoc };
 };
 
+//To convert one digit no. to 2 digits
+const twoDigit = (num) => {
+    return num < 10 ? `0${num}` : num;
+}
+
+//Update UI components for wholepage
 const updateUi = (data) => {
-    const city = data.cityDtl;
-    const weather = data.weather;
-    //update Left UI part
+    const { cityDtl, weather, forecast, curLoc } = data;
+    // console.log('cityDtl', cityDtl);
+    // console.log('weather', weather);
+    // console.log('forecast', forecast);
+    // console.log('curLoc', curLoc);
+
+    //Min and Max temp from forecast
+    const forcstData = forecast.DailyForecasts.map((item) => {
+        const date = new Date(item.Date);
+        const day = {
+            day: date.toLocaleDateString(),
+            maxTemp: item.Temperature.Maximum.Value + item.Temperature.Maximum.Unit,
+            minTemp: item.Temperature.Minimum.Value + item.Temperature.Minimum.Unit,
+            icon: `https://apidev.accuweather.com/developers/Media/Default/WeatherIcons/${twoDigit(item.Day.Icon)}-s.png`,
+            wType: item.Day.IconPhrase,
+        };
+        return day;
+    });
+
+    // update Left UI part
     sideData.innerHTML = `
-    <div class="image">
-    <img src="https://placehold.co/250x200" alt="wether">
-    </div>
-    <h1 class="temp">${weather.Temperature.Metric.Value}</h1>
-    <h6 class="wether">${weather.WeatherText}</h6>
-    <p class="day">Today . ${date.toLocaleDateString()} </p>
-    <p class="loaction"> ${city.LocalizedName}</p>`
+        <div class="image">
+            <img src="https://apidev.accuweather.com/developers/Media/Default/WeatherIcons/${twoDigit(weather.WeatherIcon)}-s.png" width="250px" height="200px"alt="wether">
+        </div>
+        <h1 class="temp">${weather.Temperature.Metric.Value}</h1>
+        <h6 class="wether">${weather.WeatherText}</h6>
+        <p class="day">Today . ${date.toLocaleDateString()} </p>
+        <p class="loaction"> ${cityDtl.LocalizedName}</p>
+    </div>`;
 
-    //Update right UI 5 day Cards
 
+    // Update right UI 5 day Cards
+    const cards = forcstData.map((item) => {
+        return `
+            <div class="card">
+                <p class="day">${item.day}</p>
+                <img src="${item.icon}" alt="icon" className="icon" />
+                <p> ${item.wType}</p>
+                <div class="temp">
+                    <p class="min">${item.minTemp}</p>
+                    <p class="max">${item.maxTemp}</p>
+                </div>
+            </div>`;
+    }).join('');
+
+    cardList.innerHTML = cards;
 
     //update right UI boxes
-    wind.innerHTML = `  
-    <p>Wind Speed</p>
-    <h2> ${weather.Wind.Speed.Metric.Value} ${weather.Wind.Speed.Metric.Unit}</h2>`;
+    wind.innerHTML = `
+        <p> Wind Speed </p>
+        <h2> ${weather.Wind.Speed.Metric.Value} ${weather.Wind.Speed.Metric.Unit}</h2>`;
 
-    airPressure.innerHTML = `  
-    <p>Air Pressure</p>
-    <h2> ${weather.Pressure.Metric.Value} ${weather.Pressure.Metric.Unit}</h2>`;
+    airPressure.innerHTML = `
+        <p> Air Pressure</p >
+        <h2> ${weather.Pressure.Metric.Value} ${weather.Pressure.Metric.Unit}</h2>`;
 
-    visibility.innerHTML = `  
-    <p>Visibility/p>
-    <h2>${weather.Visibility.Metric.Value} ${weather.Visibility.Metric.Unit}</h2>`;
+    visibility.innerHTML = `
+        <p> Visibility </p>
+        <h2>${weather.Visibility.Metric.Value} ${weather.Visibility.Metric.Unit}</h2>`;
 
     humidity.innerHTML = `
-    <p>Humidity</p>
-    <h2> ${weather.RelativeHumidity}</h2>`;
+        <p> Humidity </p>
+        <h2> ${weather.RelativeHumidity}</h2>`;
 }
 //Search city event 
 city.addEventListener('submit', (e) => {
@@ -64,3 +107,18 @@ city.addEventListener('submit', (e) => {
         .then(data => updateUi(data))
         .catch(err => console.log(err));
 });
+
+//current location buton event
+currLocButton.addEventListener('click', () => {
+    getCurrentLocation(curLoc())
+        .then(data => console.log('data', data))
+        .catch(err => console.log('err', err));
+});
+
+//current location buton event
+// currLocButton.addEventListener('click', () => {
+//     updateCity(curLoc.LocalizedName)
+//         // .then(data => console.log(data))
+//         .then(data => updateUi(data))
+//         .catch(err => console.log(err));
+// });

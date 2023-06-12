@@ -9,14 +9,17 @@ body {
   }
 
 .container{
-    height: 100vh;
-    width: 100vw;
+    /* height: 100vh; */
+    /* width: 100vw; */
+    height: inherit;
+    width:  inherit;
     background-color: #272222;
     display: flex;
+    border-radius: 5px;;
 }
 
 .left {
-    background: #01599d;
+    background: #1E213A;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -47,8 +50,8 @@ body {
     display: flex;
     flex-direction: column;
     flex: 3;
-    background-color: #5eccf1 ;
-    /* margin: 10px; */
+    background-color: #100E1D ;
+    align-items: center;
 }
 
 .tempFormat {
@@ -75,10 +78,10 @@ body {
 .card{
     display: flex;
     flex-direction: column;
-    width:150px;
-    aspect-ratio:1/2 ;
+    width:180px;
+    height: auto;
     text-align: center;
-    background-color: #005394;
+    background-color: #1E213A;
     border-radius: 4px;
 }
 
@@ -104,9 +107,9 @@ body {
 
 .box{
     padding: 5px;
-    width: 350px;
-    aspect-ratio: 3/1;
-    background: #005394;  
+    width: 300px;
+    height: auto;
+    background: #1E213A;
     font-size: large;
     text-align: center;
     border-radius: 4px;
