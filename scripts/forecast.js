@@ -12,43 +12,24 @@ const getCurrentLocation = async (coords) => {
     return data; //returning city data
 };
 
-//Get Current Location cordinates, promise is used as because cordinate is getting aftera while and empty variable is retuend.
-// const curLocCoords = async () => {
-//     if (navigator.geolocation) {
-//         return await new Promise((resolve, reject) => {
-//             navigator.geolocation.getCurrentPosition((pos) => {
-//                 // console.log(pos.coords.latitude, pos.coords.longitude)
-//                 myLocation = (pos.coords.latitude + ',' + pos.coords.longitude);
-//                 console.log('mycoords', myLocation, typeof myLocation);
-//                 resolve(myLocation);
-//             }, (err) => {
-//                 reject(err);
-//             })
-//         })
-//     } else {
-//         reject('Geolocation not supported');
-//     }
-// };
-
-// const curLocCoords2 = async () => {
-//     if (navigator.geolocation) {
-//         try {
-//             return await new Promise((resolve, reject) => {
-//                 navigator.geolocation.getCurrentPosition((pos) => {
-//                     const myLocation = pos.coords.latitude + ',' + pos.coords.longitude;
-//                     console.log('mycoords', myLocation, typeof myLocation);
-//                     resolve(myLocation);
-//                 }, (err) => {
-//                     reject(err);
-//                 });
-//             });
-//         } catch (error) {
-//             throw error;
-//         }
-//     } else {
-//         throw new Error('Geolocation not supported');
-//     }
-// };
+// Get Current Location cordinates, promise is used as because cordinate is getting aftera while and empty variable is retuend.
+const curLocCoords = async () => {
+    if (navigator.geolocation) {
+        return await new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition((pos) => {
+                // console.log(pos.coords.latitude, pos.coords.longitude)
+                myLocation = (pos.coords.latitude + ',' + pos.coords.longitude);
+                console.log('mycoords', myLocation, typeof myLocation);
+                resolve(myLocation);
+            }, (err) => {
+                reject(err);
+            })
+        })
+    } else {
+        reject('Geolocation not supported');
+    }
+};
+curLocCoords().then(myLocation => console.log('my location', myLocation));
 
 //To fetch City Info
 const getCity = async (city) => {

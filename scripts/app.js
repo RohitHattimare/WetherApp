@@ -12,13 +12,11 @@ const currLocButton = document.querySelector('.nav i');
 
 //Get City from API
 const updateCity = async (cityName) => {
+    console.log(cityName);
     const cityDtl = await getCity(cityName);
+    console.log('cityDtl', cityDtl);
     const weather = await getWeather(cityDtl.Key);
     const forecast = await getForecast(cityDtl.Key);
-    // const curLoc = await getCurrentLocation();
-    console.log('cityDtl', cityDtl);
-    console.log('weather', weather);
-    console.log('forecast', forecast);
 
     return { cityDtl, weather, forecast };
 };
@@ -31,9 +29,6 @@ const twoDigit = (num) => {
 //Update UI components for wholepage
 const updateUi = (data) => {
     const { cityDtl, weather, forecast } = data;
-    console.log('cityDtl', cityDtl);
-    console.log('weather', weather);
-    console.log('forecast', forecast);
 
     //Min and Max temp from forecast
     const forcstData = forecast.DailyForecasts.map((item) => {
@@ -110,17 +105,24 @@ city.addEventListener('submit', (e) => {
 });
 
 // current location buton event
-currLocButton.addEventListener('click', () => {
-    curLocCoords2()
-        .then(coords => getCurrentLocation(coords))
-        .then(cityN => updateCity(cityN))
-        .then(data => updateUi(data))
-        .catch(err => console.log('err', err));
+currLocButton.addEventListener('click', async () => {
+
+    const coords = await curLocCoords();
+    const city = await getCurrentLocation(coords);
+    console.log(city);
+    const data = await updateCity(city.LocalizedName)
+    updateUi(data)
 });
 
-//Set  Data from local st
-if (localStorage.getItem('city')) {
-    updateCity(localStorage.getItem('city'))
-        .then(data => updateUi(data))
-        .catch(err => console.log(err));
+window.onload = () => {
+    let localCity = localStorage.getItem('city');
+    if (localCity) {
+        updateCity(localCity)
+            .then(data => updateUi(data))
+            .catch(err => console.log(err));
+    }
+    //get Data from local storage
+    // updateCity(localStorage.getItem('city'))
+    //     .then(data => updateUi(data))
+    //     .catch(err => console.log(err));
 }
