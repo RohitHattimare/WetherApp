@@ -15,12 +15,12 @@ const updateCity = async (cityName) => {
     const cityDtl = await getCity(cityName);
     const weather = await getWeather(cityDtl.Key);
     const forecast = await getForecast(cityDtl.Key);
-    const curLoc = await getCurrentLocation();
+    // const curLoc = await getCurrentLocation();
+    console.log('cityDtl', cityDtl);
+    console.log('weather', weather);
+    console.log('forecast', forecast);
 
-    console.log(curLoc);
-
-
-    return { cityDtl, weather, forecast, curLoc };
+    return { cityDtl, weather, forecast };
 };
 
 //To convert one digit no. to 2 digits
@@ -30,11 +30,10 @@ const twoDigit = (num) => {
 
 //Update UI components for wholepage
 const updateUi = (data) => {
-    const { cityDtl, weather, forecast, curLoc } = data;
-    // console.log('cityDtl', cityDtl);
-    // console.log('weather', weather);
-    // console.log('forecast', forecast);
-    // console.log('curLoc', curLoc);
+    const { cityDtl, weather, forecast } = data;
+    console.log('cityDtl', cityDtl);
+    console.log('weather', weather);
+    console.log('forecast', forecast);
 
     //Min and Max temp from forecast
     const forcstData = forecast.DailyForecasts.map((item) => {
@@ -94,6 +93,7 @@ const updateUi = (data) => {
         <p> Humidity </p>
         <h2> ${weather.RelativeHumidity}</h2>`;
 }
+
 //Search city event 
 city.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -101,24 +101,17 @@ city.addEventListener('submit', (e) => {
     const cityName = city.city.value.trim();
     city.reset();
     //Update the UI with new city
-    console.log(cityName);
-
     updateCity(cityName)
         .then(data => updateUi(data))
         .catch(err => console.log(err));
 });
 
-//current location buton event
+// current location buton event
 currLocButton.addEventListener('click', () => {
-    getCurrentLocation(curLoc())
-        .then(data => console.log('data', data))
+    curLocCoords2()
+        .then(coords => getCurrentLocation(coords))
+        .then(cityN => updateCity(cityN))
+        .then(data => updateUi(data))
         .catch(err => console.log('err', err));
 });
 
-//current location buton event
-// currLocButton.addEventListener('click', () => {
-//     updateCity(curLoc.LocalizedName)
-//         // .then(data => console.log(data))
-//         .then(data => updateUi(data))
-//         .catch(err => console.log(err));
-// });

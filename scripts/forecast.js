@@ -12,29 +12,52 @@ const getCurrentLocation = async (coords) => {
     return data; //returning city data
 };
 
-//Get Current Location cordinates
-const curLoc = () => {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((pos) => {
-            // console.log(pos.coords.latitude, pos.coords.longitude)
-            myLocation = pos.coords.latitude + ',' + pos.coords.longitude;
-            console.log('mycoords', myLocation, typeof myLocation);
-            return myLocation;
-        }, (err) => {
-            console.log(err);
-        })
-    }
-};
+//Get Current Location cordinates, promise is used as because cordinate is getting aftera while and empty variable is retuend.
+// const curLocCoords = async () => {
+//     if (navigator.geolocation) {
+//         return await new Promise((resolve, reject) => {
+//             navigator.geolocation.getCurrentPosition((pos) => {
+//                 // console.log(pos.coords.latitude, pos.coords.longitude)
+//                 myLocation = (pos.coords.latitude + ',' + pos.coords.longitude);
+//                 console.log('mycoords', myLocation, typeof myLocation);
+//                 resolve(myLocation);
+//             }, (err) => {
+//                 reject(err);
+//             })
+//         })
+//     } else {
+//         reject('Geolocation not supported');
+//     }
+// };
 
-console.log(curLoc());
+// const curLocCoords2 = async () => {
+//     if (navigator.geolocation) {
+//         try {
+//             return await new Promise((resolve, reject) => {
+//                 navigator.geolocation.getCurrentPosition((pos) => {
+//                     const myLocation = pos.coords.latitude + ',' + pos.coords.longitude;
+//                     console.log('mycoords', myLocation, typeof myLocation);
+//                     resolve(myLocation);
+//                 }, (err) => {
+//                     reject(err);
+//                 });
+//             });
+//         } catch (error) {
+//             throw error;
+//         }
+//     } else {
+//         throw new Error('Geolocation not supported');
+//     }
+// };
+
 //To fetch City Info
 const getCity = async (city) => {
     const base = 'https://dataservice.accuweather.com/locations/v1/cities/search?apikey=';
     const query = '&q=' + city;
+    // console.log(city);
     const url = base + key + query;
     const response = await fetch(url);
     const data = await response.json();
-
     return data[0];
 }
 
@@ -55,14 +78,3 @@ const getForecast = async (id) => {
     const data = await response.json();
     return data;
 }
-
-//current location buton event
-// currLocButton.addEventListener('click', () => {
-//     getCurrentLocation(curLoc())
-//         .then(data => console.log(data))
-//         .catch(err => console.log(err));
-// });
-// getCity('chhindwara')
-//     .then(response => getWeather(response.Key))
-//     .then(data => console.log(data))
-//     .catch(err => console.log(err));
