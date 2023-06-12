@@ -99,6 +99,9 @@ city.addEventListener('submit', (e) => {
     e.preventDefault();
     //Get city value
     const cityName = city.city.value.trim();
+    //Set  Data from local st
+    localStorage.setItem('city', cityName);
+
     city.reset();
     //Update the UI with new city
     updateCity(cityName)
@@ -115,3 +118,9 @@ currLocButton.addEventListener('click', () => {
         .catch(err => console.log('err', err));
 });
 
+//Set  Data from local st
+if (localStorage.getItem('city')) {
+    updateCity(localStorage.getItem('city'))
+        .then(data => updateUi(data))
+        .catch(err => console.log(err));
+}
