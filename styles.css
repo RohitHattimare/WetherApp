@@ -6,16 +6,19 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #FFF;
-  }
+    box-sizing: border-box;
+}
 
 .container{
-    /* height: 100vh; */
-    /* width: 100vw; */
+    /* height: 100vh; 
+    width: 100vw; */
     height: inherit;
     width:  inherit;
     background-color: #272222;
     display: flex;
-    border-radius: 5px;;
+    font-size: 12px;
+    border-radius: 5px;
+    overflow: auto;
 }
 
 .left {
@@ -23,22 +26,37 @@ body {
     display: flex;
     flex-direction: column;
     flex: 1;
+    padding: auto;
+    font-size: larger;
 }
+
 .nav{
     padding: 0.7rem;
     display: flex;
     font-size: 30px;
     justify-content: space-between;
 }
-.nav form input {
-    width: 200px;
-    font-size: 18px;
-    padding: 0.5rem;
-    border-radius: 8px;;
+.nav form input{
+    width: 130px;
+    font-size: 16px;
+    padding: 0.3rem;
+    border-radius: 8px;
 }
+
+i{
+    font-size: large;
+    padding-top: 0.7rem;
+}
+
+.left .temp{
+    margin: 20px;
+    font-size: 50px;
+
+}
+
 .data{
     display: flex;
-    font-size: xx-large;
+    font-size: x-large;
     font-family: Arial, Helvetica, sans-serif;
     flex-direction: column;
     align-items: center;
@@ -73,17 +91,18 @@ body {
     flex-direction: row;
     gap:20px;
     justify-content: space-evenly;
-    padding: 30px;
+    padding: 20px;
 }
 
 .card{
     display: flex;
     flex-direction: column;
-    width:180px;
+    width:160px;
     height: auto;
     text-align: center;
     background-color: #1E213A;
     border-radius: 4px;
+    font-size: 15px;
 }
 
 .card .temp{
@@ -91,16 +110,16 @@ body {
     grid-template-columns: 1fr 1fr;
 }
 
-.info-list{
-    padding: 20px;
+.info-list h2{
+    /* padding: 20px; */
+    font-size:large;
 }
-
 .info{
     display: grid;
-    padding: 30px;
+    padding: 15px;
     grid-template-columns: 1fr 1fr ;
     grid-template-rows:  1fr 1fr;
-    gap: 30px;
+    gap: 15px;
     justify-items: center;
     min-width: 60%;
     max-width: 80%;
@@ -108,13 +127,16 @@ body {
 
 .box{
     padding: 5px;
-    width: 300px;
+    width: 250px;
     height: auto;
     background: #1E213A;
     font-size: large;
     text-align: center;
     border-radius: 4px;
-    font-size: x-large;
+    margin: 10px;
 }
 
-
+.h2,.p{
+    padding: 10px;
+    margin: 10px;
+}
