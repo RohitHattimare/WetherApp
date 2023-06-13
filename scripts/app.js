@@ -7,19 +7,7 @@ const visibility = document.querySelector('.visibility');
 const humidity = document.querySelector('.humidity');
 const cardList = document.querySelector('.card-list');
 const currLocButton = document.querySelector('.nav i');
-
-
-
-//Get City from API
-const updateCity = async (cityName) => {
-    console.log(cityName);
-    const cityDtl = await getCity(cityName);
-    console.log('cityDtl', cityDtl);
-    const weather = await getWeather(cityDtl.Key);
-    const forecast = await getForecast(cityDtl.Key);
-
-    return { cityDtl, weather, forecast };
-};
+const weatherForecast = new WeatherForecast();
 
 //To convert one digit no. to 2 digits
 const twoDigit = (num) => {
@@ -46,10 +34,10 @@ const updateUi = (data) => {
     // update Left UI part
     sideData.innerHTML = `
         <div class="image">
-            <img src="https://apidev.accuweather.com/developers/Media/Default/WeatherIcons/${twoDigit(weather.WeatherIcon)}-s.png" width="250px" height="200px"alt="wether">
+            <img src="https://apidev.accuweather.com/developers/Media/Default/WeatherIcons/${twoDigit(weather.WeatherIcon)}-s.png" width="220px" height="180px"alt="wether">
         </div>
-        <h1 class="temp">${weather.Temperature.Metric.Value}</h1>
-        <h6 class="wether">${weather.WeatherText}</h6>
+        <h2 class="temp">${weather.Temperature.Metric.Value} &deg;C </h2>
+        <h4 class="wether">${weather.WeatherText}</h4>
         <p class="day">Today . ${date.toLocaleDateString()} </p>
         <p class="loaction"> ${cityDtl.LocalizedName}</p>
     </div>`;
@@ -89,7 +77,7 @@ const updateUi = (data) => {
         <h2> ${weather.RelativeHumidity}</h2>`;
 }
 
-//Search city event 
+//Search city event
 city.addEventListener('submit', (e) => {
     e.preventDefault();
     //Get city value
@@ -99,30 +87,26 @@ city.addEventListener('submit', (e) => {
 
     city.reset();
     //Update the UI with new city
-    updateCity(cityName)
+    weatherForecast.updateCity(cityName)
         .then(data => updateUi(data))
         .catch(err => console.log(err));
 });
 
 // current location buton event
 currLocButton.addEventListener('click', async () => {
-
-    const coords = await curLocCoords();
-    const city = await getCurrentLocation(coords);
+    const coords = await weatherForecast.getCurLocCoords();
+    const city = await weatherForecast.getCoordsToCity(coords);
     console.log(city);
-    const data = await updateCity(city.LocalizedName)
+    const data = await weatherForecast.updateCity(city.LocalizedName)
     updateUi(data)
 });
 
+//get Data from local storage
 window.onload = () => {
     let localCity = localStorage.getItem('city');
     if (localCity) {
-        updateCity(localCity)
+        weatherForecast.updateCity(localCity)
             .then(data => updateUi(data))
             .catch(err => console.log(err));
     }
-    //get Data from local storage
-    // updateCity(localStorage.getItem('city'))
-    //     .then(data => updateUi(data))
-    //     .catch(err => console.log(err));
 }
