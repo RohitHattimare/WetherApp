@@ -34,7 +34,7 @@ const updateUi = (data) => {
     // update Left UI part
     sideData.innerHTML = `
         <div class="image">
-            <img src="https://apidev.accuweather.com/developers/Media/Default/WeatherIcons/${twoDigit(weather.WeatherIcon)}-s.png" width="220px" height="180px"alt="wether">
+            <img src="https://apidev.accuweather.com/developers/Media/Default/WeatherIcons/${twoDigit(weather.WeatherIcon)}-s.png" width="250px" height="200px"alt="wether">
         </div>
         <h2 class="temp">${weather.Temperature.Metric.Value} &deg;C </h2>
         <h4 class="wether">${weather.WeatherText}</h4>
