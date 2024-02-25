@@ -14,6 +14,7 @@ const twoDigit = (num) => {
     return num < 10 ? `0${num}` : num;
 }
 
+
 //Update UI components for wholepage
 const updateUi = (data) => {
     const { cityDtl, weather, forecast } = data;
@@ -36,8 +37,8 @@ const updateUi = (data) => {
         <div class="image">
             <img src="https://apidev.accuweather.com/developers/Media/Default/WeatherIcons/${twoDigit(weather.WeatherIcon)}-s.png" width="250px" height="200px"alt="wether">
         </div>
-        <h2 class="temp">${weather.Temperature.Metric.Value} &deg;C </h2>
-        <h4 class="wether">${weather.WeatherText}</h4>
+        <p class="temp">${weather.Temperature.Metric.Value} &deg;C </p>
+        <p class="weather">${weather.WeatherText}</p>
         <p class="day">Today . ${date.toLocaleDateString()} </p>
         <p class="loaction"> ${cityDtl.LocalizedName}</p>
     </div>`;
@@ -49,7 +50,7 @@ const updateUi = (data) => {
             <div class="card">
                 <p class="day">${item.day}</p>
                 <img src="${item.icon}" alt="icon" className="icon" />
-                <p> ${item.wType}</p>
+                <p class="wtypeLabel"> ${item.wType}</p>
                 <div class="temp">
                     <p class="min">${item.minTemp}</p>
                     <p class="max">${item.maxTemp}</p>
