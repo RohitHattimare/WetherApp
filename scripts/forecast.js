@@ -3,10 +3,10 @@ class WeatherForecast {
         this.key = 'OopGXhjLFeqI4Ay6vCthaG9a4ypohrND';
         this.myLocation = null;
         //To fetch Current location from cordinates    
-        this.curCoordsURI = 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=';
+        this.curCoordsURI = 'https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=';
         this.cityURI = 'https://dataservice.accuweather.com/locations/v1/cities/search?apikey=';
-        this.weatherURI = 'http://dataservice.accuweather.com/currentconditions/v1/';
-        this.forecastURI = 'http://dataservice.accuweather.com/forecasts/v1/daily/5day/';
+        this.weatherURI = 'https://dataservice.accuweather.com/currentconditions/v1/';
+        this.forecastURI = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/';
     }
 
     //update city info
