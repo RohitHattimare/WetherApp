@@ -15,13 +15,9 @@ body {
 .container {
     height: 100%;
     width: 100%;
-    height: inherit;
-    width: inherit;
-    background-color: #272222;
     display: flex;
     font-size: 12px;
-    border-radius: 5px;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .left {
@@ -29,10 +25,15 @@ body {
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: auto;
+    justify-content: flex-start;
     font-size: larger;
-    padding: 3%;
+    /* padding: 3%; */
 
+}
+
+.weather {
+    margin: 1em 0 0 1em;
+    font: 1em sans-serif;
 }
 
 .nav {
@@ -55,8 +56,25 @@ i {
 }
 
 .left .temp {
-    margin: 20px;
+    /* margin: 30px; */
     font-size: 40px;
+    margin: 15px 0 0 0;
+    /* padding: 50px; */
+}
+
+.left .day {
+    margin-top: 1.1em;
+    font: 0.9em sans-serif;
+    text-transform: uppercase;
+}
+
+.left .weather {
+    color: bisque
+}
+
+.left p.location {
+    margin: 0;
+
 }
 
 .data {
@@ -72,10 +90,11 @@ i {
 .right {
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
     flex: 3;
     background-color: #100E1D;
     align-items: center;
-    padding: 5%;
+    padding-top: 1em;
 }
 
 
@@ -88,6 +107,12 @@ i {
 
 .tempFormat input {
     margin: 15px;
+    height: 4em;
+}
+
+.wtypeLabel {
+    padding: 0;
+    margin: 0;
 }
 
 .card-list {
@@ -95,21 +120,20 @@ i {
     max-width: 80%;
     display: flex;
     flex-direction: row;
-    gap: 20px;
-    justify-content: space-evenly;
     padding: 20px;
+    gap: 1.5em;
 }
 
 .card {
     display: flex;
     flex-direction: column;
     width: 160px;
-    /* aspect-ratio: 5/4; */
     height: auto;
     text-align: center;
     background-color: #1E213A;
     border-radius: 4px;
     font-size: 15px;
+    padding: 0.6em;
 }
 
 .card .temp {
@@ -126,7 +150,7 @@ i {
     /* padding: 15px; */
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    gap: 15px;
+    gap: 1em;
     justify-items: center;
     min-width: 50%;
     max-width: 70%;
@@ -134,23 +158,24 @@ i {
 
 
 .box {
-    padding: 10px;
     width: 200px;
     height: auto;
-    /* aspect-ratio: 2/1; */
     background: #1E213A;
     font-size: large;
     text-align: center;
-    border-radius: 4px;
-    margin: 10px;
+    border-radius: 6px;
+    margin: 5px;
 }
 
-.h2,
-.p {
+.right h2 {
     padding: 10px;
-    margin: 10px;
+    margin: 4px;
 }
 
-.h2 .highlight {
-    padding-top: 10px;
+.right p {
+    margin: 15px 0 0 0;
+}
+
+h2 .highlight {
+    text-align: start;
 }
