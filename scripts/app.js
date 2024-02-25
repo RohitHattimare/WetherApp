@@ -8,7 +8,7 @@ const humidity = document.querySelector('.humidity');
 const cardList = document.querySelector('.card-list');
 const currLocButton = document.querySelector('.nav i');
 const weatherForecast = new WeatherForecast();
-
+const alertModal = document.getElementById('locationModal');
 //To convert one digit no. to 2 digits
 const twoDigit = (num) => {
     return num < 10 ? `0${num}` : num;
@@ -104,6 +104,27 @@ currLocButton.addEventListener('click', async () => {
 
 //get Data from local storage
 window.onload = () => {
+    // alert("Please enable location services for a better experience.");
+    // if (navigator.geolocation) {
+    //     navigator.geolocation.getCurrentPosition(
+    //         position => {
+    //             // Geolocation API is available and permission granted
+    //             // Do something with position.coords.latitude and position.coords.longitude
+    //         },
+    //         error => {
+    //             // Geolocation API is available but an error occurred (e.g., permission denied)
+    //             alertModal.style.display = 'block';
+    //         }
+    //     );
+    // } else {
+    //     // Geolocation API is not available
+    //     alertModal.style.display = 'block';
+    // }
+
+    // document.getElementById('closeModal').onclick = function () {
+    //     alertModal.style.display = 'none';
+    // }
+
     let localCity = localStorage.getItem('city');
     if (localCity) {
         weatherForecast.updateCity(localCity)
